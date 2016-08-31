@@ -64,13 +64,11 @@
 
         render: function() {
           return (
-            var mds = new Remarkable();
             <div className="comment">
               <h2 className="commentAuthor">
                 {this.props.author}
               </h2>
               <span dangerouslySetInnerHTML={this.rawMarkup()} />
-              {mds.render(this.props.children.toString())}
             </div>
           );
         }
