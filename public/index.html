@@ -8,15 +8,79 @@
     <script src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
     <script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
     <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
-    <script src="https://npmcdn.com/jquery@3.1.0/dist/jquery.min.js"></script>
-    <script src="https://npmcdn.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
+    <script src="https://npmcdn.com/jquery@3.1.0/dist/jquery.min.js"></script> <!-- optional, not necessary to React work -->
+    <script src="https://npmcdn.com/remarkable@1.6.2/dist/remarkable.min.js"></script> <!-- Markdown -->
   </head>
   <body>
     <div id="content"></div>
-    <script type="text/babel" src="scripts/example.js"></script>
     <script type="text/babel">
       // To get started with this tutorial running your own code, simply remove
       // the script tag loading scripts/example.js and start writing code here.
+
+      // tutorial3.js
+      var CommentBox = React.createClass({
+        render: function() {
+          return (
+            <div className="commentBox">
+              Hello, world! I am a CommentBox.
+              <h1> Comments </h1>
+              <CommentList />
+              <CommentForm />
+            </div>
+          );
+        }
+      });
+
+      // tutorial5.js
+      var CommentList = React.createClass({
+        render: function() {
+          return (
+            <div className="commentList">
+              Hello, World!  I am a CommentList.
+              <Comment author="Vitor Ruiz"> This is one comments</Comment>
+              <Comment author="Klayton Faria"> This is *another* comment</Comment>
+            </div>
+          );
+        }
+      });
+
+      var CommentForm = React.createClass({
+        render: function() {
+          return (
+            <div className="commentForm">
+              Hello, World! I am a CommentForm
+            </div>
+          );
+        }
+      });
+
+      //tutorial7.js
+      var Comment = React.createClass({
+        rawMarkup: function() {
+          var md = new Remarkable();
+          var rawMarkup = md.render(this.props.children.toString());
+          return { __html: rawMarkup }
+        },
+
+        render: function() {
+          return (
+            var mds = new Remarkable();
+            <div className="comment">
+              <h2 className="commentAuthor">
+                {this.props.author}
+              </h2>
+              <span dangerouslySetInnerHTML={this.rawMarkup()} />
+              {mds.render(this.props.children.toString())}
+            </div>
+          );
+        }
+      });
+
+
+      ReactDOM.render(
+        <CommentBox />,
+        document.getElementById('content')
+      );
     </script>
   </body>
 </html>
